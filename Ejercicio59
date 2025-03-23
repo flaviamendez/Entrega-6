@@ -1,0 +1,39 @@
+1. La secuencia de tests y de versiones del método a desarrollar según TDD
+Para aplicar la técnica de desarrollo dirigido por pruebas (TDD), comenzamos escribiendo un test que compruebe el comportamiento del método sumaRecursivaElementosPila(Stack<BigDecimal> pila) ante una entrada válida y ante una entrada vacía.
+
+Creamos una pila con los primeros 10 números (del 1 al 10) y verificamos que la suma sea 55. Además, añadimos un segundo caso con una pila vacía, que debería devolver como resultado BigDecimal.ZERO.
+
+La primera versión del método no existe, por lo que el test no compila.
+En la segunda versión, creamos el método pero devolviendo null, por lo que el test falla en tiempo de ejecución.
+En la tercera versión, agregamos una condición de parada que devuelve BigDecimal.ZERO si la pila está vacía. Esta versión hace pasar el test de pila vacía, pero no suma los valores.
+En la cuarta versión, implementamos correctamente la recursión: extraemos el valor superior de la pila con pop(), lo sumamos con la llamada recursiva al resto de la pila. Con esta versión, ambos tests pasan.
+Finalmente, en la quinta versión, podemos refactorizar el código si es necesario para mejorar la legibilidad, manteniendo los tests funcionando correctamente.
+
+Por tanto, la evolución del método según TDD sería la siguiente:
+
+Versión 0: No existe el método. Resultado: error de compilación.
+Versión 1: El método existe pero devuelve null. Resultado: excepción en tiempo de ejecución.
+Versión 2: El método devuelve BigDecimal.ZERO si la pila está vacía. Resultado: pasa el test de pila vacía, pero no el de valores.
+Versión 3: Se implementa la recursión (caso base + llamada recursiva). Resultado: pasan ambos tests.
+Versión 4: Refactorización final. Resultado: los tests siguen pasando.
+
+2. Análisis de la complejidad temporal asintótica
+Método iterativo (sumaIterativaElementosPila)
+Este método recorre la pila con un bucle while, extrayendo elementos con pop() y sumándolos uno a uno con BigDecimal.add(). Cada operación individual tiene coste constante. Por tanto, la complejidad temporal es proporcional al número de elementos en la pila.
+
+Complejidad temporal del método iterativo: O(n)
+
+Método recursivo (sumaRecursivaElementosPila)
+Este método realiza una llamada recursiva por cada elemento en la pila. En cada llamada, realiza un pop() y una suma, y luego se llama a sí mismo con la pila restante. Por tanto, también realiza n operaciones en total.
+
+Complejidad temporal del método recursivo: O(n)
+
+Comparación espacial
+La versión iterativa utiliza memoria constante: no se crean nuevas estructuras, y no hay llamadas recursivas anidadas.
+
+En cambio, la versión recursiva utiliza la pila de llamadas del sistema. Por cada elemento, se crea un nuevo marco de ejecución, lo que implica un consumo de memoria proporcional a n.
+
+Complejidad espacial:
+
+Iterativa: O(1)
+Recursiva: O(n)
